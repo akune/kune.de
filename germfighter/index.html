@@ -1,0 +1,74 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+  <style type="text/css">
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body id="germ-canvas">
+<div id="canvas">
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var germs = new Array();
+    var canvas = $('#germ-canvas');
+    canvas.css('position', 'relative');
+    canvas.css('overflow', 'hidden');
+    for (i = 0; i < 10; i++) {
+      canvas.append('<img class="germ" id="germ-'+i+'" src="germ_'+Math.round((Math.random() * 2))+'.png" width="48" height="48" style="display: none; position: absolute; " xPos="'+(Math.random() * (canvas.width()-48))+'" yPos="'+(Math.random() * (canvas.height()-48))+'" xSpeed="'+5*(Math.random() - 0.5)+'" ySpeed="'+5*(Math.random() - 0.5)+'"></img>');
+      germ = $('#germ-'+i);
+      germ.mousedown(function() {
+        $(this).remove();
+      });
+    }
+    
+    cycle = function() {
+      canvas = $('#germ-canvas');
+      $('.germ').each(function() {
+        germ = $(this);
+          xPos = eval(germ.attr('xPos'));
+          yPos = eval(germ.attr('yPos'));
+          xSpeed = eval(germ.attr('xSpeed'));
+          ySpeed = eval(germ.attr('ySpeed'));
+          germ.css('left', xPos);
+          germ.css('top', yPos);
+          germ.show();
+          
+          xPos += xSpeed;
+          if (xPos < 0) {
+            xPos = 0;
+            xSpeed = -xSpeed;
+          }
+          if (xPos > canvas.width()-48) {
+            xPos = canvas.width()-48;
+            xSpeed = -xSpeed;
+          }
+          germ.attr('xPos', xPos);
+          germ.attr('xSpeed', xSpeed);
+          
+          yPos += ySpeed;
+          if (yPos < 0) {
+            yPos = 0;
+            ySpeed = -ySpeed;
+          }
+          if (yPos > canvas.height()-48) {
+            yPos = canvas.height()-48;
+            ySpeed = -ySpeed;
+          }
+          germ.attr('yPos', yPos);
+          germ.attr('ySpeed', ySpeed);
+          
+      });
+    }
+    
+    window.setInterval('cycle()', 25);
+  });
+</script>
+
+</body>
+</html>

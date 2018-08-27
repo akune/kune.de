@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="format-detection" content="telephone=no" /> 
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <title>Game Of Life</title>
+    
+    <style>
+      .cell {
+        width: 15px;
+        height: 15px;
+        border: 1px solid gray;
+      }
+
+      .cell.spawning {
+        background-color: #dfffdf;
+      }
+      
+      .cell.alive {
+        background-color: black;
+      }
+      
+			.cell.alive.dying {
+        background-color: #600000;
+			}
+      
+      .container .world {
+        background-color: #dfdfdf;
+      }
+      
+      .container.active  .world{
+        background-color: white;
+      }
+      
+      .container.active button.activate {
+        display: none;
+			}
+
+      .container button.deactivate {
+        display: none;
+			}
+			
+      .container.active button.deactivate {
+        display: inline;
+			}
+    </style>
+
+  </head>
+
+  <body>
+
+		<div class="container" rows="35" columns="35" delay="100"></div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">// <![CDATA[
+			$(document).ready(function () {
+			  $('.container').append('<table class="world" /><button class="activate">Start</button><button class="deactivate">Stop</button><button class="clear">Clear</button><button class="randomize">Randomize</button>');
+			  $('.container').each(function () {
+			  	rows = $(this).attr('rows');
+			  	columns = $(this).attr('columns');
+					for (y = 0; y < rows; y++) {
+						$('.world').append('<tr class="row-'+y+'" />');
+						for (x = 0; x < columns; x++) {
+							$('.row-'+y).append('<td id="cell-'+x+'-'+y+'" class="column-'+y+' cell" />');
+						}
+					}
+				});
+
+
+				$('.container .cell').click(function() {
+					$(this).toggleClass('alive');
+				});
+				$('.container button.activate,.container button.deactivate').click(function() {
+				  $(this).parents('.container').toggleClass('active');
+				});
+				$('.container button.clear').click(function() {
+				  $('.cell', $(this).parents('.container')).each(function() {
+						$(this).removeClass('alive');
+						$(this).removeClass('dying');
+						$(this).removeClass('spawning');
+				  });
+				});
+				$('.container button.randomize').click(function() {
+				  $('.cell', $(this).parents('.container')).each(function() {
+				    if (Math.random() > 0.5) {
+							$(this).toggleClass('alive');
+						}
+						$(this).removeClass('dying');
+						$(this).removeClass('spawning');
+				  });
+				});
+				
+				currentRows = function(container) {
+					return $('table.world tr', container).length;
+				}
+				
+				currentColumns = function(container) {
+				  return $('table.world tr.row-0 td', container).length;
+				}
+				
+				addRow = function(container) {
+				  columns = currentColumns(container);
+				  rows = currentRows(container);
+					$('table.world', container).append('<tr class="row-'+rows+'" />');
+					for (i = 0; i < currentColumns(); i++) {
+			  		$('.row-'+rows, container).append('<td id="cell-'+i+'-'+rows+'" class="column-'+rows+' cell" />');
+					}
+					$('.container tr.row-'+rows+' .cell').click(function() {
+						$(this).toggleClass('alive');
+					});
+				}
+				
+				removeRow = function(container) {
+					// TODO: implement
+				}
+				
+				addColumn = function(container) {
+					// TODO: implement
+				}
+				
+				removeColumn = function(container) {
+					// TODO: implement
+				}
+				
+				isAlive = function(x, y, container, rows, columns) {
+				  while (x < 0) {
+				  	x += columns;
+				  }
+				  while (y < 0) {
+				    y += rows;
+					}
+					while (x >= columns) {
+					  x -= columns;
+					}
+					while (y >= rows) {
+					  y -= rows;
+					}
+          return $('#cell-'+x+'-'+y, container).hasClass('alive');
+				}
+				
+				livingNeighbours = function(x, y, container, rows, columns) {
+					count = 0;
+				  if (isAlive(x-1, y, container, rows, columns)) { count++ }
+				  if (isAlive(x+1, y, container, rows, columns)) { count++ }
+				  if (isAlive(x-1, y-1, container, rows, columns)) { count++ }
+				  if (isAlive(x-1, y+1, container, rows, columns)) { count++ }
+				  if (isAlive(x+1, y-1, container, rows, columns)) { count++ }
+				  if (isAlive(x+1, y+1, container, rows, columns)) { count++ }
+				  if (isAlive(x, y-1, container, rows, columns)) { count++ }
+				  if (isAlive(x, y+1, container, rows, columns)) { count++ }
+				  return count;
+				}
+				
+				prepare = function() {
+					$('.container.active').each(function() {
+					  rows = currentRows($(this));
+					  columns = currentColumns($(this));
+						for (y = 0; y < rows; y++) {
+							for (x = 0; x < columns; x++) {
+								alive = isAlive(x, y, this, livingNeighbours, rows, columns);
+								neighbours = livingNeighbours(x, y, this, rows, columns);
+								if (neighbours == 3 && !alive) {
+									$('#cell-'+x+'-'+y, this).addClass('spawning');
+								}
+								if ((neighbours > 3 || neighbours < 2) && alive) {
+									$('#cell-'+x+'-'+y, this).addClass('dying');
+								}
+							}
+						}
+					});
+					delay = $('.container').attr('delay');
+					setTimeout(apply, delay*.8);
+				}
+				
+				apply = function() {
+					$('.container.active').each(function() {
+						$('.cell.spawning').each(function() {
+							$(this).removeClass('spawning');
+							$(this).addClass('alive');
+						});
+						$('.cell.dying').each(function() {
+							$(this).removeClass('dying');
+							$(this).removeClass('alive');
+						});
+					});
+					delay = $('.container').attr('delay');
+					setTimeout(prepare, delay*.2);
+				}
+				
+				prepare();
+				
+			});
+    // ]]</script>
+  </body>
+</html>
+
