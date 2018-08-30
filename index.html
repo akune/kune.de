@@ -2,27 +2,19 @@
 <head>
     <style>
 a {
-color: black;
-text-decoration: none;
-}
-<!--a:hover {-->
-<!--text-decoration: underline;-->
-<!--}-->
-.button {
-  display: inline;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-  margin: 0px auto 0 auto;
-  width: auto;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: 10px;
-  padding: 15px;
-}
-.button:hover {
-  background-color: rgba(1, 1, 1, 0.3);
   color: black;
-  border-radius: 0px;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-position: top center;
+  background-repeat:repeat;
+  background-image: url('full-bloom.png');
+  font-family:arial,sans-serif,helvetica;
 }
 .box {
   background-color: rgba(0, 0, 0, 0.3);
@@ -31,7 +23,15 @@ text-decoration: none;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
-.bg1 {
+.imprint {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  font-size: 9pt;
+  /*font-weight: lighter;*/
+}
+.bg {
   position: absolute;
   z-index: -1;
   left: 0px;
@@ -41,39 +41,75 @@ text-decoration: none;
   background-position: top center;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity .5s linear 0s;
+  transition: all 1.5s linear 0s;
 }
-.bg2 {
-  position: absolute;
-  z-index: -1;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  background-position: top center;
+
+
+.grid {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(7, 1fr);
+  background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1));
+  max-width: 80%;
+  margin: 50px auto;
+  padding: 5px;
+  opacity: 0;
+  transition: all 1.6s ease-in;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.cube {
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  background-size: cover;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity .5s linear 0s;
+  transition: opacity 1.6s ease-in;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
+
+
 
     </style>
 </head>
-<body style="margin: 0; padding: 0; background-position: top center; background-repeat:repeat; background-image: url('full-bloom.png'); font-family:arial,sans-serif,helvetica;">
-<div class="bg1"><!--placeholder--></div>
-<div class="bg2"><!--placeholder--></div>
+<body>
+<div class="bg bg1"><!--placeholder--></div>
+<div class="bg bg2"><!--placeholder--></div>
 <div class="box">
     <div style="text-align: center; margin: 0px 10px 0px 0px; padding: 10px; ">
         <h1>kune.de</h1>
-        <!--<a href="https://mail.kune.de" style="color: white"><img src="roundcube-logo.png" height="15px"/>&nbsp;Webmail</a><br/>-->
-        <!--<br/>-->
     </div>
 </div>
 
-<br/>
-<!--<a class="button" href="https://cloud.kune.de" style="color: white"><img src="https://cloud.kune.de/apps/theming/logo?v=7"-->
-                                                          <!--height="15px"/>&nbsp;Cloud</a><br/>-->
 
-<div class="box" style="position: absolute; bottom: 0px; width: 100%; text-align: center; font-size: 9pt; font-weight: lighter;">
+<div class="grid">
+    <div class="cube">
+        <p>w</p>
+    </div>
+    <div class="cube">
+        <p>e</p>
+    </div>
+    <div class="cube">
+        <p>l</p>
+    </div>
+    <div class="cube">
+        <p>c</p>
+    </div>
+    <div class="cube">
+        <p>o</p>
+    </div>
+    <div class="cube">
+        <p>m</p>
+    </div>
+    <div class="cube">
+        <p>e</p>
+    </div>
+</div>
+
+<div class="box imprint" style="">
     Impressum: <a href="https://alexander.kune.de" style="color: white;">Alexander Kune</a>, Landdrostenweg 11e, 22459
     Hamburg, postmaster@kune.de
 </div>
@@ -125,7 +161,33 @@ text-decoration: none;
     }
 
     window.setTimeout(swap, 5000);
-    window.setInterval(swap, 60000);
+    window.setInterval(swap, 30000);
+
+{
+const cubes = document.getElementsByClassName('cube');
+let counter = 1;
+for (let item of cubes) {
+  const bgImage = `url('https://source.unsplash.com/collection/1065396/320x240?${counter}')`;
+  item.style.background = `linear-gradient(
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.9)), ${bgImage}`;
+  item.style.transitionDelay = (counter) * 200 + "ms";
+  counter++;
+}
+start = function() {
+  const grids = document.getElementsByClassName('grid');
+  for (let grid of grids) {
+    grid.style.opacity = 1;
+    grid.style.transitionDelay = "200ms";
+  }
+  for (let item of cubes) {
+    item.style.opacity = 1;
+  }
+};
+window.setTimeout(start, 1000);
+}
+
+
 
 </script>
 </html>
