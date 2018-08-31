@@ -41,7 +41,7 @@ body {
   background-position: top center;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: all 1.5s linear 0s;
+  transition: all 2.5s linear 0s;
 }
 
 
@@ -54,7 +54,7 @@ body {
   margin: 50px auto;
   padding: 5px;
   opacity: 0;
-  transition: all 1.6s ease-in;
+  transition: background 1.6s ease-in;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
@@ -67,10 +67,7 @@ body {
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 1.6s ease-in;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
 }
-
 
 
     </style>
@@ -160,14 +157,14 @@ body {
         }
     }
 
-    window.setTimeout(swap, 5000);
+    window.setTimeout(swap, 3400);
     window.setInterval(swap, 30000);
 
 {
 const cubes = document.getElementsByClassName('cube');
 let counter = 1;
 for (let item of cubes) {
-  const bgImage = `url('https://source.unsplash.com/collection/1065396/320x240?${counter}')`;
+  const bgImage = `url('https://source.unsplash.com/collection/1671814/320x240?${counter}')`;
   item.style.background = `linear-gradient(
       rgba(0, 0, 0, 0.3),
       rgba(0, 0, 0, 0.9)), ${bgImage}`;
@@ -184,8 +181,9 @@ start = function() {
     item.style.opacity = 1;
   }
 };
-window.setTimeout(start, 1000);
+window.setTimeout(start, 3500);
 }
+
 
 
 
