@@ -110,7 +110,7 @@ div.title {
     </div>
 </div>
 
-<div style="position: relative; padding: 5px; width: 70%; left: 15%; background: white; opacity: 70%; border-radius: 15px;">
+<div id="weatherWidget" style="transition: all 2.5s linear 0s; opacity: 0; position: relative; padding: 5px; width: 70%; left: 15%; background: white; border-radius: 15px;">
 <a class="weatherwidget-io" href="https://forecast7.com/de/53d559d99/hamburg/" data-label_1="Hamburg" data-label_2="Wetter" data-icons="Climacons Animated" data-shadow="#fafafa" data-textcolor="#061338" >HAMBURG Wetter</a>
     <div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%">&nbsp;</div>
 </div>
@@ -192,6 +192,9 @@ start = function() {
   for (let item of cubes) {
     item.style.opacity = 1;
   }
+  const weatherWidget = document.getElementById('weatherWidget');
+  weatherWidget.style.transitionDelay = "3000ms";
+  weatherWidget.style.opacity = '70%';
 };
 window.setTimeout(start, 3500);
 }
