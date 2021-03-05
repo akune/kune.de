@@ -41,6 +41,7 @@ body {
   height: 100%;
   background-position: top center;
   background-repeat: no-repeat;
+  background-size: cover;
   opacity: 0;
   transition: all 2.5s linear 0s;
 }
@@ -131,7 +132,8 @@ div.title {
         //window.console.log("Updating");
         //window.console.log(e);
         let img = new Image();
-        img.src = "https://source.unsplash.com/collection/1065396/2560x1600?"+counter;
+        // img.src = "https://source.unsplash.com/collection/1065396/2560x1600?"+counter;
+        img.src = "https://source.unsplash.com/collection/1065396?"+counter;
         //console.log(img);
         e.style.backgroundImage = "url('"+img.src+"')";
         counter++;
