@@ -2,8 +2,9 @@
 <head>
     <style>
 a {
-  color: black;
+  font-size: 9pt;
   text-decoration: none;
+  color: white;
 }
 a:hover {
   text-decoration: underline;
@@ -21,7 +22,7 @@ body {
   color: white;
   margin: 0px auto 0 auto; width: 100%;
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+   -webkit-backdrop-filter: blur(5px);
 }
 .imprint {
   position: absolute;
@@ -29,8 +30,8 @@ body {
   width: 100%;
   text-align: center;
   font-size: 9pt;
-  /*font-weight: lighter;*/
 }
+
 .bg {
   position: absolute;
   z-index: -1;
@@ -44,7 +45,6 @@ body {
   transition: all 2.5s linear 0s;
 }
 
-
 .grid {
   display: grid;
   grid-gap: 5px;
@@ -56,7 +56,7 @@ body {
   opacity: 0;
   transition: background 1.6s ease-in;
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+   -webkit-backdrop-filter: blur(5px);
 }
 
 .cube {
@@ -69,6 +69,10 @@ body {
   transition: opacity 1.6s ease-in;
 }
 
+div.title {
+  text-align: center; margin: 0px 10px 0px 0px; padding: 10px;
+}
+
 
     </style>
 </head>
@@ -76,7 +80,7 @@ body {
 <div class="bg bg1"><!--placeholder--></div>
 <div class="bg bg2"><!--placeholder--></div>
 <div class="box">
-    <div style="text-align: center; margin: 0px 10px 0px 0px; padding: 10px; ">
+    <div class="title">
         <h1>kune.de</h1>
     </div>
 </div>
@@ -106,8 +110,15 @@ body {
     </div>
 </div>
 
-<div class="box imprint" style="">
-    Impressum: <a href="https://alexander.kune.de" style="color: white;">Alexander Kune</a>, Landdrostenweg 11e, 22459
+<div style="position: relative; padding: 30px; width: 50%; left: 25%; background: white; opacity: 70%; border-radius: 15px;">
+<a class="weatherwidget-io" href="https://forecast7.com/de/53d559d99/hamburg/" data-label_1="HAMBURG" data-label_2="Wetter" data-icons="Climacons Animated" data-shadow="#fafafa" data-textcolor="#061338" >HAMBURG Wetter</a>
+</div>
+<script>
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
+
+<div class="box imprint">
+    Impressum: <a href="https://alexander.kune.de">A. Kune</a>, Landdrostenweg 11e, 22459
     Hamburg, postmaster@kune.de
 </div>
 </body>
