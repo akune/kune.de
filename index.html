@@ -2,78 +2,85 @@
 <head>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <style>
-a {
-  font-size: 9pt;
-  text-decoration: none;
-  color: white;
-}
-a:hover {
-  text-decoration: underline;
-}
-body {
-  margin: 0;
-  padding: 0;
-  background-position: top center;
-  background-repeat:repeat;
-  background-image: url('full-bloom.png');
-  font-family:arial,sans-serif,helvetica;
-}
-.box {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-  margin: 0px auto 0 auto; width: 100%;
-  backdrop-filter: blur(5px);
-   -webkit-backdrop-filter: blur(5px);
-}
-.imprint {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  text-align: center;
-  font-size: 9pt;
-}
+        a {
+            font-size: 9pt;
+            text-decoration: none;
+            color: white;
+        }
 
-.bg {
-  position: absolute;
-  z-index: -1;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0;
-  transition: all 2.5s linear 0s;
-}
+        a:hover {
+            text-decoration: underline;
+        }
 
-.grid {
-  display: grid;
-  grid-gap: 5px;
-  grid-template-columns: repeat(7, 1fr);
-  background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1));
-  max-width: 80%;
-  margin: 50px auto;
-  padding: 5px;
-  opacity: 0;
-  transition: background 1.6s ease-in;
-  backdrop-filter: blur(5px);
-   -webkit-backdrop-filter: blur(5px);
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-position: top center;
+            background-repeat: repeat;
+            background-image: url('full-bloom.png');
+            font-family: arial, sans-serif, helvetica;
+        }
 
-.cube {
-  color: white;
-  font-size: 3rem;
-  text-align: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 1.6s ease-in;
-}
+        .box {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            margin: 0px auto 0 auto;
+            width: 100%;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
 
-div.title {
-  text-align: center; margin: 0px 10px 0px 0px; padding: 10px;
-}
+        .imprint {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            text-align: center;
+            font-size: 9pt;
+        }
+
+        .bg {
+            position: absolute;
+            z-index: -1;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0;
+            transition: all 2.5s linear 0s;
+        }
+
+        .grid {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: repeat(7, 1fr);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+            max-width: 80%;
+            margin: 50px auto;
+            padding: 5px;
+            opacity: 0;
+            transition: background 1.6s ease-in;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .cube {
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.6s ease-in;
+        }
+
+        div.title {
+            text-align: center;
+            margin: 0px 10px 0px 0px;
+            padding: 10px;
+        }
 
 
     </style>
@@ -112,12 +119,38 @@ div.title {
     </div>
 </div>
 
-<div id="weatherWidget" style="transition: all 2.5s linear 0s; opacity: 0; position: relative; padding: 5px; width: 70%; left: 15%; background: white; border-radius: 15px;">
-<a class="weatherwidget-io" href="https://forecast7.com/de/53d559d99/hamburg/" data-label_1="Hamburg" data-label_2="Wetter" data-icons="Climacons Animated" data-shadow="#fafafa" data-textcolor="#061338" >HAMBURG Wetter</a>
+<div id="weatherWidget"
+     style="transition: opacity 2.5s linear 0s; opacity: 0; position: relative; padding: 5px; width: 70%; left: 15%; background: white; border-radius: 15px;">
+    <a class="weatherwidget-io" href="https://forecast7.com/de/53d559d99/hamburg/" data-label_1="Hamburg"
+       data-label_2="Wetter" data-icons="Climacons Animated" data-shadow="#fafafa" data-textcolor="#061338">HAMBURG
+        Wetter</a>
     <div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%">&nbsp;</div>
 </div>
 <script>
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+    !function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://weatherwidget.io/js/widget.min.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, 'script', 'weatherwidget-io-js');
+
+    function refreshWeatherWidget() {
+        weatherWidget = document.getElementById('weatherWidget');
+        weatherWidget.style.transition = 'opacity 0.2s linear 0s';
+
+        weatherWidget.style.opacity = '0%';
+        window.setTimeout(function () {
+            __weatherwidget_init();
+        }, 200);
+        window.setTimeout(function () {
+            weatherWidget.style.opacity = '70%';
+        }, 350);
+    }
+
+    refreshWeatherWidget();
 </script>
 
 <div class="box imprint">
@@ -129,37 +162,36 @@ div.title {
     var counter = 0;
     var bg1 = document.querySelector("div.bg1");
     var bg2 = document.querySelector("div.bg2");
+
     function updateImage(e) {
-        //window.console.log("Updating");
-        //window.console.log(e);
         let img = new Image();
         // img.src = "https://source.unsplash.com/collection/1065396/2560x1600?"+counter;
-        img.src = "https://source.unsplash.com/collection/1065396?"+counter;
-        //console.log(img);
-        e.style.backgroundImage = "url('"+img.src+"')";
+        img.src = "https://source.unsplash.com/collection/1065396?" + counter;
+        e.style.backgroundImage = "url('" + img.src + "')";
         counter++;
         if (img.complete) {
-            //window.console.log("Done - was already completed");
             e.classList.add("loaded");
         } else {
             e.classList.remove("loaded");
-            img.addEventListener('load', function() {
-                //window.console.log("Done - loaded");
+            img.addEventListener('load', function () {
                 e.classList.add("loaded");
             });
         }
 
     }
+
     function updateInvisible(event) {
         e = event.target;
         if (e.style.opacity == 0) {
             updateImage(e);
         }
     }
+
     updateImage(bg1);
     updateImage(bg2);
     bg1.addEventListener("transitionend", updateInvisible, false);
     bg2.addEventListener("transitionend", updateInvisible, false);
+
     function swap() {
         if (bg1.style.opacity == 1 && bg1.classList.contains("loaded")) {
             bg1.style.opacity = 0;
@@ -168,41 +200,39 @@ div.title {
         } else if (bg2.classList.contains("loaded")) {
             bg1.style.opacity = 1;
             bg2.style.opacity = 0;
-            //updateImage(bg1)
         }
     }
 
     window.setTimeout(swap, 3400);
     window.setInterval(swap, 30000);
+    window.setInterval(refreshWeatherWidget, 10 * 60000);
 
-{
-const cubes = document.getElementsByClassName('cube');
-let counter = 1;
-for (let item of cubes) {
-  const bgImage = `url('https://source.unsplash.com/collection/1671814/320x240?${counter}')`;
-  item.style.background = `linear-gradient(
+    {
+        const cubes = document.getElementsByClassName('cube');
+        let counter = 1;
+        for (let item of cubes) {
+            const bgImage = `url('https://source.unsplash.com/collection/1671814/320x240?${counter}')`;
+            item.style.background = `linear-gradient(
       rgba(0, 0, 0, 0.3),
       rgba(0, 0, 0, 0.9)), ${bgImage}`;
-  item.style.transitionDelay = (counter) * 200 + "ms";
-  counter++;
-}
-start = function() {
-  const grids = document.getElementsByClassName('grid');
-  for (let grid of grids) {
-    grid.style.opacity = 1;
-    grid.style.transitionDelay = "200ms";
-  }
-  for (let item of cubes) {
-    item.style.opacity = 1;
-  }
-  const weatherWidget = document.getElementById('weatherWidget');
-  weatherWidget.style.transitionDelay = "1500ms";
-  weatherWidget.style.opacity = '70%';
-};
-window.setTimeout(start, 2500);
-}
-
-
+            item.style.transitionDelay = (counter) * 200 + "ms";
+            counter++;
+        }
+        start = function () {
+            const grids = document.getElementsByClassName('grid');
+            for (let grid of grids) {
+                grid.style.opacity = 1;
+                grid.style.transitionDelay = "200ms";
+            }
+            for (let item of cubes) {
+                item.style.opacity = 1;
+            }
+            const weatherWidget = document.getElementById('weatherWidget');
+            weatherWidget.style.transitionDelay = "1500ms";
+            weatherWidget.style.opacity = '70%';
+        };
+        window.setTimeout(start, 2500);
+    }
 
 
 </script>
